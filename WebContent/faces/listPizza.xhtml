@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+<title>Liste de Pizza</title>
+</h:head>
+<h:body>
+
+<h2 align="center">Liste des Pizza possible</h2>
+
+	<p:dataTable var="pizza" value="#{pizzaBean.listPizza}" emptyMessage="No Pizza found with given criteria">
+		<p:column headerText="nom">
+			<h:outputText value="#{pizza.nom}" />
+		</p:column>
+
+		<p:column headerText="Description">
+			<h:outputText value="#{pizza.description}" />
+		</p:column>
+
+<!-- 		<p:column headerText="Prix">
+			<h:outputText value="#{pizza.prix}" />
+		</p:column> -->
+		<p:column filterBy="#{pizza.prix}" headerText="Prix" footerText="custom (min)" filterFunction="#{pizzaBean.filterByPrice}">
+            <h:outputText value="#{pizza.prix}">
+                <f:convertNumber currencySymbol="€" type="currency"/>
+            </h:outputText>
+        </p:column>
+	</p:dataTable>
+</h:body>
+</html>
