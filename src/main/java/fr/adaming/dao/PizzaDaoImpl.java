@@ -42,4 +42,13 @@ public class PizzaDaoImpl implements IPizzaDao {
 		session.getTransaction().commit();
 	}
 
+	@Override
+	public Pizza getPiizzaById(long id) {
+		Pizza piz = new Pizza();
+		session.beginTransaction();
+		piz = (Pizza) session.get(Pizza.class, id);
+		session.getTransaction().commit();
+		return piz;
+	}
+
 }

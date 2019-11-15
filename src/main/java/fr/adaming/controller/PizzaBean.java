@@ -8,6 +8,7 @@ import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import fr.adaming.entities.Pizza;
 import fr.adaming.service.IPizzaService;
@@ -21,13 +22,24 @@ public class PizzaBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	Pizza pizza = new Pizza();
 	IPizzaService piz=new PizzaServiceImpl();
 	List<Pizza>listPizza =new ArrayList<>();
 
 	public List<Pizza> getListPizza() {
 		return listPizza;
 	}
+
+	
+	public Pizza getPizza() {
+		return pizza;
+	}
+
+
+	public void setPizza(Pizza pizza) {
+		this.pizza = pizza;
+	}
+
 
 	public void setListPizza(List<Pizza> listPizza) {
 		this.listPizza = listPizza;
@@ -38,16 +50,39 @@ public class PizzaBean implements Serializable{
 		listPizza=piz.getAllPizzaService();
 	}
 
-	public boolean filterByPrice(Object value, Object filter, Locale locale) {
-		String filterText = (filter == null) ? null : filter.toString().trim();
-		if(filterText == null||filterText.equals("")) {
-			return true;
-		}
-
-		if(value == null) {
-			return false;
-		}
-
-		return ((Comparable) value).compareTo(Integer.valueOf(filterText)) > 0;
+	public String ajouterPizza(){
+		piz.ajouterPizzaService(pizza);
+		init();
+		return "listPizza.xhtml" ;
+	}
+	
+	public String supprimerPizza(long id){
+		piz.deletePizzaService(id);
+		init();
+		return "liste";
+	}
+	
+	public String modifierPizza(long id){
+		pizza = piz.getPizzaById(id);
+		return "formulairePizza.xhtml";
+	}
+	
+	public String updatePizza(){
+		piz.updatePizzaService(pizza);
+		init();
+		return "listPizza.xhtml";
+	}
+	
+	public String goAjoutPizza(){
+		pizza = new Pizza();
+		
+		System.out.println(pizza);
+		
+		return "formulairePizza.xhtml";
+	}
+	
+	public String goListPizza(){
+		init();
+		return "listPizza.xhtml";
 	}
 }

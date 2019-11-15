@@ -12,5 +12,7 @@ public interface IPizzaDao {
 	
 	public void deletePizzaDao(long id);
 	
+	public Pizza getPiizzaById(long id);
+	
 	public void updatePizza(Pizza piz1);
 }

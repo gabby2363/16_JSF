@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>Ajouter une Commande à la base de Données</title>
+</h:head>
+<h:body>
+	<c:choose>
+		<c:when test="#{commandeBean.com.id!=0}">
+			<h2 align="center">Modifier une commande</h2>
+		</c:when>
+		<c:otherwise>
+			<h2 align="center">Ajouter une commande</h2>
+		</c:otherwise>
+	</c:choose>
+	<h:form>
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:outputLabel value="Pizza : " for="acPizza" />
+			<p:selectOneMenu id="acPizza" value="#{commandeBean.selectedPizza}"
+				style="width:250px">
+				<f:selectItem itemLabel="Choisissez la Pizza" itemValue=""
+					noSelectionOption="true" />
+				<f:selectItems value="#{commandeBean.listPizza}" var="pizza"
+					itemLabel="#{pizza.nom}" itemValue="#{pizza.id}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="client : " for="acClient" />
+			<p:selectOneMenu id="acClient" value="#{commandeBean.selectedClient}"
+				style="width:250px">
+				<f:selectItem itemLabel="Choisissez le Client" itemValue=""
+					noSelectionOption="true" />
+				<f:selectItems value="#{commandeBean.listClient}" var="client"
+					itemLabel="#{client.nom}" itemValue="#{client.id}"/>
+			</p:selectOneMenu>
+		</h:panelGrid>
+	
+		<c:choose>
+			<c:when test="#{commandeBean.com.id!=0}">
+				<h:commandButton value="Modifier"
+					action="#{commandeBean.updateCommande}" />
+			</c:when>
+			<c:otherwise>
+				<h:commandButton value="Ajouter"
+					action="#{commandeBean.ajouterCommande}" />
+			</c:otherwise>
+		</c:choose>
+	</h:form>
+</h:body>
+</html>

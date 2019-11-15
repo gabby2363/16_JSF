@@ -20,12 +20,12 @@ public class CommandeDaoImpl implements ICommandeDao {
 
 	@Override
 	public List<Commande> getAllCommandeDao() {
-		List<Commande>listClient= new ArrayList<Commande>();
+		List<Commande>listCommande= new ArrayList<Commande>();
 
 		session.beginTransaction();
-		listClient = session.createQuery("from tb_client").list();
+		listCommande = session.createQuery("from tb_commande").list();
 		session.getTransaction().commit();
-		return listClient;
+		return listCommande;
 	}
 
 	@Override
@@ -38,9 +38,9 @@ public class CommandeDaoImpl implements ICommandeDao {
 	@Override
 	public Commande getCommandeByIdDao(long id) {
 		session.beginTransaction();
-		Commande livreClient = (Commande) session.get(Commande.class,id);
+		Commande commande = (Commande) session.get(Commande.class,id);
 		session.getTransaction().commit();
-		return livreClient;
+		return commande;
 	}
 
 	@Override

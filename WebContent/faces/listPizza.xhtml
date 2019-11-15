@@ -7,13 +7,39 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-<title>Liste de Pizza</title>
+	<title>Liste de Pizza</title>
 </h:head>
 <h:body>
+	<h2 align="center">Vive les Pizza De Chez Tony</h2>
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Pizza">
+				<p:menuitem value="Ajouter une Pizza" action="#{pizzaBean.goAjoutPizza}"></p:menuitem>
+			</p:submenu>
+			<p:submenu label="Client">
+				<p:menuitem value="Ajouter un Client" action="#{clientBean.goAjoutClient}"></p:menuitem>
+				<p:menuitem value="affiche la liste de Client" action="#{clientBean.afficherListClient}"></p:menuitem>
+			</p:submenu>
+			<p:submenu label="Commande">
+				<p:menuitem value="Ajouter une Commande" action="#{commandeBean.goAjoutCommande}"></p:menuitem>
+				<p:menuitem value="Afficher la liste des Commande" action="#{commandeBean.afficherListCommande}"></p:menuitem>
+			</p:submenu>
+		</p:menubar>
+	</h:form>
 
-<h2 align="center">Liste des Pizza possible</h2>
-
-	<p:dataTable var="pizza" value="#{pizzaBean.listPizza}" emptyMessage="No Pizza found with given criteria">
+	<h2 align="center">Liste des Pizza possible</h2>
+	<p:dataTable var="pizza" value="#{pizzaBean.listPizza}"
+		emptyMessage="No Pizza found with given criteria">
+		<p:column style="text-align:center;padding:5px">
+			<h:form>
+				<h:commandButton type="submit" value="Del"
+					action="#{pizzaBean.supprimerPizza(pizza.id)}"></h:commandButton>
+			</h:form>
+			<h:form>
+				<h:commandButton type="submit" value="Edit"
+					action="#{pizzaBean.modifierPizza(pizza.id)}"></h:commandButton>
+			</h:form>
+		</p:column>
 		<p:column headerText="nom">
 			<h:outputText value="#{pizza.nom}" />
 		</p:column>
@@ -21,15 +47,12 @@
 		<p:column headerText="Description">
 			<h:outputText value="#{pizza.description}" />
 		</p:column>
+		<p:column headerText="Prix">
+			<h:outputText value="#{pizza.prix}">
+				<f:convertNumber currencySymbol="€" type="currency" />
+			</h:outputText>
+		</p:column>
 
-<!-- 		<p:column headerText="Prix">
-			<h:outputText value="#{pizza.prix}" />
-		</p:column> -->
-		<p:column filterBy="#{pizza.prix}" headerText="Prix" footerText="custom (min)" filterFunction="#{pizzaBean.filterByPrice}">
-            <h:outputText value="#{pizza.prix}">
-                <f:convertNumber currencySymbol="€" type="currency"/>
-            </h:outputText>
-        </p:column>
 	</p:dataTable>
 </h:body>
 </html>

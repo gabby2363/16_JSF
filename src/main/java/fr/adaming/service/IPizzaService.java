@@ -12,4 +12,6 @@ public interface IPizzaService {
 	public void deletePizzaService(long id);
 
 	public void updatePizzaService(Pizza piz1);
+	
+	public Pizza getPizzaById(long id);
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>Ajouter une pizza à la base de Données</title>
+</h:head>
+<h:body>
+	<c:choose>
+		<c:when test="#{pizzaBean.pizza.id!=0}">
+			<h2 align="center">Modifier une pizza</h2>
+		</c:when>
+		<c:otherwise>
+			<h2 align="center">Ajouter une pizza</h2>
+		</c:otherwise>
+	</c:choose>
+
+	<h:form>
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:outputLabel value="Nom : " for="acNom" />
+			<p:inputText id="acNom" value="#{pizzaBean.pizza.nom}" />
+			<p:outputLabel value="Description : " for="acDes" />
+			<p:inputText id="acDes" value="#{pizzaBean.pizza.description}" />
+			<p:outputLabel value="Prix : " for="acPrix" />
+			<p:inputNumber id="acPrix" value="#{pizzaBean.pizza.prix}" />
+		</h:panelGrid>
+		<c:choose>
+			<c:when test="#{pizzaBean.pizza.id!=0}">
+				<h:commandButton value="Modifier" action="#{pizzaBean.updatePizza}" />
+			</c:when>
+			<c:otherwise>
+				<h:commandButton value="Ajouter" action="#{pizzaBean.ajouterPizza}" />
+			</c:otherwise>
+		</c:choose>
+	</h:form>
+
+</h:body>
+</html>
